@@ -1,6 +1,6 @@
 import * as types from "./actionTypes";
 import axios from "axios";
-const mainURL = 'http://localhost:8080'
+const mainURL = 'https://vooshdb.onrender.com'
 const loginUser = (body) => (dispatch) => {
     dispatch({ type: types.GET_LOGIN_USER_REQUEST });
     const url = mainURL + `/login-user`

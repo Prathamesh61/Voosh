@@ -1,6 +1,6 @@
 import * as types from "./actionTypes";
 import axios from "axios";
-const mainURL = 'http://localhost:8080'
+const mainURL = 'https://vooshdb.onrender.com'
 
 const getOrder = (id) => (dispatch) => {
   dispatch({ type: types.GET_ORDERS_REQUEST });
