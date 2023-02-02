@@ -8,7 +8,9 @@ const loginUser = (body) => (dispatch) => {
     return axios
         .post(url, body)
         .then((r) => {
-            console.log("login", r.data)
+            // console.log("login", r.data)
+            localStorage.setItem("token", r.data.token);
+            localStorage.setItem("user", JSON.stringify(r.data.user));
             return dispatch({
                 type: types.GET_LOGIN_USER_SUCCESS,
                 payload: r.data,
@@ -26,7 +28,7 @@ const signupUser = (body) => (dispatch) => {
     return axios
         .post(url, body)
         .then((r) => {
-            console.log("signup", r.data);
+            // console.log("signup", r.data);
             return dispatch({
                 type: types.GET_SIGNUP_USER_SUCCESS,
             });

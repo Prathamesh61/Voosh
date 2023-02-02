@@ -14,7 +14,8 @@ const SignUp = () => {
     const Navigate = useNavigate();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const isLoading = useSelector((store) => store.AuthReducer.isLoading);
+    
     const handleSignUp = (payload) => {
         console.log("working")
         dispatch(signupUser(payload)).then((r) => {
@@ -52,9 +53,18 @@ const SignUp = () => {
                             <Input onChange={handle} placeholder={"Enter password"} value={user.password} name='password' type="password" />
                         </FormControl>
                         <Stack spacing={10}>
-                            <Button bg={'blue.400'} color={'white'} _hover={{ bg: 'blue.500', }} onClick={() => handleSignUp(user)}>
-                                Sign Up
-                            </Button>
+                            {
+                                isLoading ? <Button isLoading
+                                    loadingText='Loading'
+                                    colorScheme='teal'
+                                    variant='outline'
+                                    spinnerPlacement='start' bg={'blue.400'} color={'white'} _hover={{ bg: 'blue.500', }}>
+                                    Sign in
+                                </Button> :
+                                    <Button bg={'blue.400'} color={'white'} _hover={{ bg: 'blue.500', }} onClick={() => handleSignUp(user)}>
+                                        Sign Up
+                                    </Button>
+                            }
                         </Stack>
                     </Stack>
                 </Box>

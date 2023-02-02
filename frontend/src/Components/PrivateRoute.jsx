@@ -3,8 +3,12 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 const PrivateRoute = ({ children }) => {
-    const token = localStorage.getItem('token');
+    const token = useSelector((state) => state.AuthReducer.token);
+    const isAuth = useSelector((state) => state.AuthReducer.isAuth);
+
+
     console.log(token);
+    console.log(isAuth);
     if (token) {
         return children;
     }

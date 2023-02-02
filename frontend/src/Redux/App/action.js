@@ -13,6 +13,7 @@ const getOrder = (id) => (dispatch) => {
       },
     })
     .then((r) => {
+      console.log(r.data)
       return dispatch({
         type: types.GET_ORDERS_SUCCESS,
         payload: r.data.order,

@@ -13,7 +13,7 @@ import {
     useColorModeValue,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../Redux/Auth/action';
 
@@ -23,20 +23,22 @@ const initial = {
 }
 const SignIn = () => {
     const [user, setUser] = useState(initial);
-    const Navigate = useNavigate();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const isLoading = useSelector((store) => store.AuthReducer.isLoading);
+
 
     const handleSignIn = (payload) => {
         console.log("working");
         dispatch(loginUser(payload)).then((r) => {
+            console.log(r);
             alert("Login Successfull");
             navigate('/');
         })
     };
 
     useEffect(() => {
-    }, []);
+    }, [dispatch]);
 
     // handleSignIn(user);
     const handle = (e) => {
@@ -64,9 +66,19 @@ const SignIn = () => {
                             <Input onChange={handle} placeholder={"Enter Password"} value={user.password} name='password' type="password" />
                         </FormControl>
                         <Stack spacing={10}>
-                            <Button bg={'blue.400'} color={'white'} _hover={{ bg: 'blue.500', }} onClick={() => handleSignIn(user)}>
-                                Sign in
-                            </Button>
+                            {
+                                isLoading ?
+                                    <Button isLoading
+                                        loadingText='Loading'
+                                        colorScheme='teal'
+                                        variant='outline'
+                                        spinnerPlacement='start' bg={'blue.400'} color={'white'} _hover={{ bg: 'blue.500', }}>
+                                        Sign in
+                                    </Button> :
+                                    <Button bg={'blue.400'} color={'white'} _hover={{ bg: 'blue.500', }} onClick={() => handleSignIn(user)}>
+                                        Sign in
+                                    </Button>
+                            }
                         </Stack>
                     </Stack>
                 </Box>

@@ -13,6 +13,7 @@ const AddOrder = () => {
     const user = useSelector((state) => state.AuthReducer.user) || {};
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const isLoading = useSelector((store) => store.AppReducer.isLoading);
 
     const handleOrder = (payload) => {
         dispatch(postOrder(payload)).then((r) => {
@@ -43,9 +44,19 @@ const AddOrder = () => {
                             <Input onChange={handle} placeholder={"Enter Phone Number"} value={user.phone_number} name='phone_number' type='tel' />
                         </FormControl>
                         <Stack spacing={10}>
-                            <Button bg={'blue.400'} color={'white'} _hover={{ bg: 'blue.500', }} onClick={() => handleOrder(order)}>
-                                Add Order
-                            </Button>
+                            {
+                                isLoading ?
+                                    <Button isLoading
+                                        loadingText='Loading'
+                                        colorScheme='teal'
+                                        variant='outline'
+                                        spinnerPlacement='start' bg={'blue.400'} color={'white'} _hover={{ bg: 'blue.500', }}>
+                                        Add Order
+                                    </Button> :
+                                    <Button bg={'blue.400'} color={'white'} _hover={{ bg: 'blue.500', }} onClick={() => handleOrder(order)}>
+                                        Add Order
+                                    </Button>
+                            }
                         </Stack>
                     </Stack>
                 </Box>
